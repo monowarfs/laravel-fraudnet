@@ -1,0 +1,54 @@
+{
+    "name": "monowar/fraudnet",
+    "description": "Laravel package for fraud.net APIs",
+    "keywords": ["fraud.net", "laravel","api"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Monowar Hossain",
+            "email": "monwarfs@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-json": "*",
+        "illuminate/support": "6 - 9",
+        "guzzlehttp/guzzle": "^6.4 || ^7.0",
+        "psr/log": "^1.1 || ^2.0 || ^3.0",
+        "nesbot/carbon": "^1.2 || ^2.26"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "phpunit/phpunit": "^8.3 || ^9.1",
+        "orchestra/testbench": "3.8 - 7",
+        "phpspec/prophecy-phpunit": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Monowarfs\\Fraudnet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Monowarfs\\Fraudnet\\Tests\\": "tests"
+        },
+        "files": [
+            "vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Monowarfs\\Fraudnet\\FruadnetServiceProvider"
+            ],
+            "aliases": {
+                "Fraudnet": "Monowarfs\\Fraudnet\\Facade\\Fraudnet"
+            }
+        }
+    }
+}
