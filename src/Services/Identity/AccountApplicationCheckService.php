@@ -29,7 +29,7 @@ class AccountApplicationCheckService
                 ->setHeader('Authorization', 'Basic '.base64_encode($this->authCode))
                 ->makePostRequest(
                     $this->api::API_ACCOUNT_APPLICATION_CHECK,
-                    $this->accountApplicationCheck->toArray()
+                    $this->accountApplicationCheck->assignedToArray()
                 );
         }catch (FraudnetException $e){
             // do anything with the exception
