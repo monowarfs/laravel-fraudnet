@@ -16,7 +16,7 @@ class HttpCaller implements Caller
     {
         $this->init();
 
-        if ($baseUrl) {
+        if ($baseUrl != null ) {
             $this->baseUrl = $baseUrl;
         }
     }
@@ -45,9 +45,6 @@ class HttpCaller implements Caller
 
     public function makePostRequest($url, $payload, $contentType = 'application/json')
     {
-
-        \Log::info($payload);
-
         $response = Http::withHeaders($this->getHeader())
             ->withHeaders([
                 'Content-Type' => $contentType,
@@ -57,13 +54,9 @@ class HttpCaller implements Caller
                 $payload
             );
 
-        Log::info($response->body());
-
         if (($errorResponse = $this->checkStatusCode($response->status())) !== false) {
-            \Log::info("Status check failed");
             return $errorResponse;
         }
-        // chk validation error
 
         if(($validationErrorResponse = $this->checkResponseValidation($response->object())) !== false ){
             return $validationErrorResponse;
@@ -83,8 +76,6 @@ class HttpCaller implements Caller
                 $payload
             );
 
-        Log::info($response->body());
-
         if (($errorResponse = $this->checkStatusCode($response->status())) !== false) {
             return $errorResponse;
         }
@@ -99,8 +90,6 @@ class HttpCaller implements Caller
                 $this->getBaseUrl() . $url,
                 $params
             );
-
-        Log::info($response->body());
 
         if (($errorResponse = $this->checkStatusCode($response->status())) !== false) {
             return $errorResponse;
@@ -136,21 +125,15 @@ class HttpCaller implements Caller
 
     private function checkResponseValidation(Object $object)
     {
-
-        \Log::info((array)$object);
-
         if(!isset($object->success)){
-        \Log::info("h1");
             throw new \Exception('Response Validation Error!', 422);
         }
 
         if($object->success == false && $object->source === "Validation"){
-            \Log::info("h2");
             throw new \Exception(json_encode($object->message, JSON_THROW_ON_ERROR), 422);
         }
 
         if($object->success == false && $object->source === "Duplicate Order"){
-            \Log::info("h3");
             throw new \Exception(json_encode($object->message, JSON_THROW_ON_ERROR), 422);
         }
 
