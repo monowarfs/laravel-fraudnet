@@ -29,7 +29,7 @@ class AccountApplicationUpdateService
                 ->setHeader('Authorization', 'Basic '.base64_encode($this->authCode))
                 ->makePatchRequest(
                     $this->api::API_ACCOUNT_APPLICATION_UPDATE,
-                    $this->accountApplicationUpdate->toArray()
+                    $this->accountApplicationUpdate->assignedToArray()
                 );
         }catch (FraudnetException $e){
             // do anything with the exception

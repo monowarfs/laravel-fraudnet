@@ -39,9 +39,6 @@ class TransactionCheckService
 
         }catch (FraudnetException $e){
             // do anything with the exception
-
-            Log::info("Exception from service class");
-
             Log::error(
                 $e->getFile() . ' ' .
                 $e->getLine() . ' ' .
@@ -50,7 +47,6 @@ class TransactionCheckService
             Log::error($e);
             return $e;
         }catch (\Exception|\Throwable $e){
-            Log::info("Exception from service class");
             Log::error(
                 $e->getFile() . ' ' .
                 $e->getLine() . ' ' .
